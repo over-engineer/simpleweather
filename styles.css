@@ -1,0 +1,102 @@
+html, body {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	min-width: 100%;
+	min-height: 100%;
+
+	font-family: "Ubuntu", Arial, sans-serif;
+	/*font-size: 16px;*/
+	text-align: center;
+	background-image: url("images/tweed_2x.png");
+	color: #333;
+}
+
+h1, h2 {
+	color: orangered;
+	margin: 0;
+}
+
+.weather-output-wrapper {
+	background: white;
+	min-width: 100%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 2em 0;
+	box-shadow: 0 0 50px 10px #222;
+}
+
+.weather-output {
+	width: 960px;
+	margin: auto;
+}
+
+.weather-city-wrapper {
+	width: 100%;
+	display: inline-block;
+}
+
+.weather-details-wrapper {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin-top: -2em;
+}
+
+.weather-details-wrapper div {
+	display: inline-block;
+}
+
+.weather-output-city {
+	font-size: 6em;
+}
+
+div.weather-output-weather-type {
+	font-size: 3em;
+	text-align: center;
+	transform: translateY(-1.6em);
+}
+
+.weather-details-wrapper img {
+	width: 12em;
+	display: inline-block;
+	margin-left: -8em;
+}
+
+
+.weather-output-average-temp {
+
+}
+
+.weather-output-min-temp {
+
+}
+
+.weather-output-max-temp {
+
+}
+
+div.temp-wrapper {
+	display: inline-block;
+	width: 80%;
+	margin-left: -8em;
+	margin-top: -3em;
+}
+
+.temp-wrapper div {
+	width: 49%;
+	display: inline-block;
+}
+
+.weather-output-current-temp {
+	font-size: 3em;
+	text-align: right;
+	transform: translateY(-0.2em);
+}
+
+.lesser-temp-wrapper div {
+	width: 100%;
+	text-align: left;
+	padding-left: 2.5em;
+}
