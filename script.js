@@ -15,7 +15,7 @@ $(document).ready(function() {
 			// Update appropriate HTML classes
 			$(".weather-output-city").html(city);
 			$(".weather-output-weather-type").html(weatherType);
-			$(".weather-details-wrapper").prepend('<img src="images/weather-icons/Sun.svg">');
+			$(".weather-details-wrapper").append('<img src="images/weather-icons/Sun.svg">');
 			$(".weather-output-avg-temp").append(avgTemp + "&deg;C");
 			$(".weather-output-min-temp").append(minTemp + "&deg;C");
 			$(".weather-output-max-temp").append(maxTemp + "&deg;C");
@@ -27,6 +27,8 @@ $(document).ready(function() {
 			var currentTemp = Math.round(jsonData.main.temp);
 			$(".weather-output-current-temp").html(currentTemp + "&deg;C");
 		});
+
+		$(".weather-output-wrapper").append("<br><br>" + Date());
 
 	}
 
