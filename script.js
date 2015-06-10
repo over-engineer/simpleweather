@@ -12,10 +12,18 @@ $(document).ready(function() {
 			var minTemp = Math.round(jsonData.list[0].temp.min);
 			var maxTemp = Math.round(jsonData.list[0].temp.max);
 
+			var weatherIcon = jsonData.list[0].weather[0].icon; // http://openweathermap.org/weather-conditions
+			var weatherIconList = ['01d','01n','02d','02n','03d','03n','04d','04n','09d','09n','10d','10n','11d','11n','13d','13n','50d','50n'];
+
+			if (weatherIconList.indexOf(weatherIcon) == -1) {
+				console.log('Icon for weather type not found!');
+				weatherIcon = '04d';
+			}
+
 			// Update appropriate HTML classes
 			$(".weather-output-city").html(city);
 			$(".weather-output-weather-type").html(weatherType);
-			$(".weather-details-wrapper").append('<img src="images/weather-icons/Sun.svg">');
+			$(".weather-details-wrapper").append('<img src="images/weather-icons/' + weatherIcon + '.svg">');
 			$(".weather-output-avg-temp").append(avgTemp + "&deg;C");
 			$(".weather-output-min-temp").append(minTemp + "&deg;C");
 			$(".weather-output-max-temp").append(maxTemp + "&deg;C");
@@ -26,6 +34,7 @@ $(document).ready(function() {
 		$.getJSON(currentURL, function(jsonData) {
 			var currentTemp = Math.round(jsonData.main.temp);
 			$(".weather-output-current-temp").html(currentTemp + "&deg;C");
+			// $(".weather-output-current-temp").prepend('<img src="images/weather-icons/Thermometer-50.svg">');
 		});
 
 		$(".weather-output-wrapper").append("<br><br>" + Date());
@@ -34,9 +43,10 @@ $(document).ready(function() {
 
 	// Get weather info from api in JSON format
 	// Current day only
-	var sydneyCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=Sydney,au&units=metric&APPID=43589e78e8e7987b96a7f3a86a6ae84c";
+	var sydneyCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=Sydney,au&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
 	// 5 day forecast
-	var sydneyForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Sydney,au&cnt=5&units=metric&APPID=43589e78e8e7987b96a7f3a86a6ae84c";
+	var sydneyForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Sydney,au&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
 	// Call the function
 	updateWeatherInfo(sydneyForecastURL,sydneyCurrentWeatherURL);
+
 });

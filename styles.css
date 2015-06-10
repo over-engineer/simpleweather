@@ -63,8 +63,8 @@ div.weather-output-weather-type {
 
 .weather-details-wrapper img {
 	width: 12em;
+	height: 12em;
 	display: inline-block;
-	/*padding-left: 2em;*/
 	transform: translateX(1em);
 }
 
