@@ -1,3 +1,5 @@
+var weatherLocation;
+
 $(document).ready(function() {
 
 	var updateWeatherInfo = function(fiveDayURL,currentURL) {
@@ -41,12 +43,25 @@ $(document).ready(function() {
 
 	}
 
+	weatherLocation = "Sydney"; //TODO: remove this
+	// Update site based on location search by user
+	$(".location-search-form").submit(function(event) {
+		weatherLocation = $(".location-search-form input").val();
+		userCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+		userForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + weatherLocation + "&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+		
+		updateWeatherInfo(userForecastURL,userCurrentWeatherURL);	
+
+		// Prevents default form submit behaviour (page refresh on submit)
+		event.preventDefault();
+	});
+
 	// Get weather info from api in JSON format
 	// Current day only
-	var sydneyCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=Sydney,au&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+	var userCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
 	// 5 day forecast
-	var sydneyForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Sydney,au&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+	var userForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + weatherLocation + "&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
 	// Call the function
-	updateWeatherInfo(sydneyForecastURL,sydneyCurrentWeatherURL);
+	updateWeatherInfo(userForecastURL,userCurrentWeatherURL);
 
 });
