@@ -25,10 +25,11 @@ $(document).ready(function() {
 			// Update appropriate HTML classes
 			$(".weather-output-city").html(city);
 			$(".weather-output-weather-type").html(weatherType);
+			$(".weather-details-wrapper img").remove();
 			$(".weather-details-wrapper").append('<img src="images/weather-icons/' + weatherIcon + '.svg">');
-			$(".weather-output-avg-temp").append(avgTemp + "&deg;C");
-			$(".weather-output-min-temp").append(minTemp + "&deg;C");
-			$(".weather-output-max-temp").append(maxTemp + "&deg;C");
+			$(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C");
+			$(".weather-output-min-temp").html('Min: ' + minTemp + "&deg;C");
+			$(".weather-output-max-temp").html('Max: ' + maxTemp + "&deg;C");
 
 		});
 
@@ -39,7 +40,7 @@ $(document).ready(function() {
 			// $(".weather-output-current-temp").prepend('<img src="images/weather-icons/Thermometer-50.svg">');
 		});
 
-		$(".weather-output-wrapper").append("<br><br>" + Date());
+		// $(".weather-output-wrapper").append("<br><br>" + Date());
 
 	}
 
