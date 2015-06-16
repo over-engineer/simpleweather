@@ -4,13 +4,13 @@ html, body {
 	margin: 0;
 	border: 0;
 	padding: 0;
-	min-width: 100%;
-	min-height: 100%;
+	/*min-width: 100%;*/
+	/*min-height: 100%;*/
 
 	font-family: "Ubuntu", Arial, sans-serif;
 	font-size: 16px;
 	text-align: center;
-	background-image: url("images/tweed_2x.png");
+	background: url("images/tweed_2x.png");
 	color: #333;
 }
 
@@ -22,29 +22,24 @@ h1, h2 {
 .weather-output-wrapper {
 	background: white;
 	min-width: 100%;
-	/*min-height: 100%;*/
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
 	padding: 2em 0;
 	box-shadow: 0 0 50px 10px #222;
+	overflow: hidden;
 }
 
 .weather-output {
-	width: 960px;
-	margin: auto;
 }
 
 .weather-city-wrapper {
-	width: 70%;
-	display: inline-block;
+	display: block;
 }
 
 .weather-details-wrapper {
-	width: 70%;
-	display: inline-block;
+	display: block;
 	text-align: center;
-	margin-top: -2em;
 }
 
 .weather-details-wrapper div {
@@ -55,17 +50,18 @@ h1, h2 {
 	font-size: 6em;
 }
 
-div.weather-output-weather-type {
+.weather-output-weather-type {
 	font-size: 3em;
 	text-align: center;
-	transform: translateY(-1.6em);
+	transform: translateY(-1.2em);
+	/*transform: translateY(-100%);*/
 }
 
 .weather-details-wrapper img {
 	width: 12em;
 	height: 12em;
 	display: inline-block;
-	transform: translateX(1em);
+	margin: -1em 0;
 }
 
 
@@ -81,27 +77,37 @@ div.weather-output-weather-type {
 
 }
 
-div.temp-wrapper {
-	display: inline-block;
-	width: 70%;
-	/*margin-left: -8em;*/
-	margin-top: -3em;
+.temp-wrapper {
+	display: block;
 }
 
 .temp-wrapper div {
-	width: 39%;
 	display: inline-block;
-	padding: 0 5%;
+	/*padding: 0 1em;*/
 }
 
 .weather-output-current-temp {
 	font-size: 3em;
 	text-align: right;
-	transform: translateY(-0.2em);
+	margin-left: -1em;
+	padding-right: 1em;
 }
 
 .lesser-temp-wrapper div {
-	width: 100%;
 	text-align: left;
-	/*padding-left: 0;*/
+	display: block;
+}
+
+
+
+/* Media queries test */
+
+@media (max-width: 600px) {
+	html, body {
+		background: white;
+	}
+
+	.weather-output-wrapper {
+		box-shadow: none;
+	}
 }

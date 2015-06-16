@@ -26,7 +26,7 @@ $(document).ready(function() {
 			$(".weather-output-city").html(city);
 			$(".weather-output-weather-type").html(weatherType);
 			$(".weather-details-wrapper img").remove();
-			$(".weather-details-wrapper").append('<img src="images/weather-icons/' + weatherIcon + '.svg">');
+			$(".weather-details-wrapper").append('<img src="images/weather-icons/' + weatherIcon + '.svg" alt="' + weatherType + ' weather icon">');
 			$(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C");
 			$(".weather-output-min-temp").html('Min: ' + minTemp + "&deg;C");
 			$(".weather-output-max-temp").html('Max: ' + maxTemp + "&deg;C");
