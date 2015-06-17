@@ -9,6 +9,8 @@ $(document).ready(function() {
 		$.getJSON(fiveDayURL, function(jsonData) {
 			// Assign wanted data to vars
 			var city = jsonData.city.name;
+			var country = jsonData.city.country;
+
 			var weatherType = jsonData.list[0].weather[0].main;
 			var avgTemp = Math.round(jsonData.list[0].temp.day);
 			var minTemp = Math.round(jsonData.list[0].temp.min);
@@ -23,10 +25,11 @@ $(document).ready(function() {
 			}
 
 			// Update appropriate HTML classes
-			$(".weather-output-city").html(city);
+			$(".weather-output-city").html(city/* + ", " + country*/);
+			$(".weather-output-country").html(country);
 			$(".weather-output-weather-type").html(weatherType);
-			$(".weather-details-wrapper img").remove();
-			$(".weather-details-wrapper").append('<img src="images/weather-icons/' + weatherIcon + '.svg" alt="' + weatherType + ' weather icon">');
+			// $(".weather-type-img-wrapper").empty();
+			$(".weather-type-img-wrapper").html('<img src="images/weather-icons/' + weatherIcon + '.svg" alt="' + weatherType + ' weather icon">');
 			$(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C");
 			$(".weather-output-min-temp").html('Min: ' + minTemp + "&deg;C");
 			$(".weather-output-max-temp").html('Max: ' + maxTemp + "&deg;C");

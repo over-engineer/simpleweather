@@ -1,3 +1,4 @@
+
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700);
 
 html, body {
@@ -8,15 +9,20 @@ html, body {
 	/*min-height: 100%;*/
 
 	font-family: "Ubuntu", Arial, sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 	text-align: center;
 	background: url("images/tweed_2x.png");
 	color: #333;
 }
 
 h1, h2 {
-	color: orangered;
+	color: steelblue;
 	margin: 0;
+}
+
+p {
+	margin: 0;
+	font-style: italic;
 }
 
 .weather-output-wrapper {
@@ -27,10 +33,7 @@ h1, h2 {
 	transform: translateY(-50%);
 	padding: 2em 0;
 	box-shadow: 0 0 50px 10px #222;
-	overflow: hidden;
-}
-
-.weather-output {
+	/*overflow: hidden;*/
 }
 
 .weather-city-wrapper {
@@ -44,6 +47,8 @@ h1, h2 {
 
 .weather-details-wrapper div {
 	display: inline-block;
+	vertical-align: center;
+	/*padding: 0 1em;*/
 }
 
 .weather-output-city {
@@ -52,9 +57,16 @@ h1, h2 {
 
 .weather-output-weather-type {
 	font-size: 3em;
-	text-align: center;
-	transform: translateY(-1.2em);
-	/*transform: translateY(-100%);*/
+	text-align: right;
+	vertical-align: middle;
+	width: 4em;
+	margin-left: -1em;
+}
+
+.weather-type-img-wrapper {
+	width: 12em;
+	display: inline-block;
+	text-align: left;
 }
 
 .weather-details-wrapper img {
@@ -62,19 +74,7 @@ h1, h2 {
 	height: 12em;
 	display: inline-block;
 	margin: -1em 0;
-}
-
-
-.weather-output-average-temp {
-
-}
-
-.weather-output-min-temp {
-
-}
-
-.weather-output-max-temp {
-
+	vertical-align: middle;
 }
 
 .temp-wrapper {
@@ -83,24 +83,27 @@ h1, h2 {
 
 .temp-wrapper div {
 	display: inline-block;
-	/*padding: 0 1em;*/
 }
 
 .weather-output-current-temp {
 	font-size: 3em;
 	text-align: right;
-	margin-left: -1em;
-	padding-right: 1em;
+	vertical-align: middle;
+	width: 4em;
+	/*margin-right: -4em;*/
+}
+
+.lesser-temp-wrapper {
+	vertical-align: middle;
+	width: 12em;
+	padding-left: 4em;
+	/*font-size: 1.5em;*/
 }
 
 .lesser-temp-wrapper div {
 	text-align: left;
 	display: block;
 }
-
-
-
-/* Media queries test */
 
 @media (max-width: 600px) {
 	html, body {
