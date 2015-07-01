@@ -8,28 +8,28 @@ $(document).ready(function() {
 
 		$.getJSON(fiveDayURL, function(jsonData) {
 			// Assign wanted data to vars
-			var city = jsonData.city.name;
-			var country = jsonData.city.country;
+			// var city = jsonData.city.name;
+			// var country = jsonData.city.country;
 
-			var weatherType = jsonData.list[0].weather[0].main;
+			// var weatherType = jsonData.list[0].weather[0].main;
 			var avgTemp = Math.round(jsonData.list[0].temp.day);
 			var minTemp = Math.round(jsonData.list[0].temp.min);
 			var maxTemp = Math.round(jsonData.list[0].temp.max);
 
-			var weatherIcon = jsonData.list[0].weather[0].icon; // http://openweathermap.org/weather-conditions
-			var weatherIconList = ['01d','01n','02d','02n','03d','03n','04d','04n','09d','09n','10d','10n','11d','11n','13d','13n','50d','50n'];
+			// var weatherIcon = jsonData.list[0].weather[0].icon;
+			// var weatherIconList = ['01d','01n','02d','02n','03d','03n','04d','04n','09d','09n','10d','10n','11d','11n','13d','13n','50d','50n'];
 
-			if (weatherIconList.indexOf(weatherIcon) == -1) {
-				console.log('Icon for weather type not found!');
-				weatherIcon = '04d';
-			}
+			// if (weatherIconList.indexOf(weatherIcon) == -1) {
+			// 	console.log('Icon for weather type not found!');
+			// 	weatherIcon = '04d';
+			// }
 
 			// Update appropriate HTML classes
-			$(".weather-output-city").html(city/* + ", " + country*/);
-			$(".weather-output-country").html(country);
-			$(".weather-output-weather-type").html(weatherType);
+			// $(".weather-output-city").html(weather-output-city);
+			// $(".weather-output-country").html(country);
+			// $(".weather-output-weather-type").html(weatherType);
 			// $(".weather-type-img-wrapper").empty();
-			$(".weather-type-img-wrapper").html('<img src="images/weather-icons/' + weatherIcon + '.svg" alt="' + weatherType + ' weather icon">');
+			// $(".weather-type-img-wrapper").html('<img src="images/weather-icons/' + weatherIcon + '.svg" alt="' + weatherType + ' weather icon">');
 			$(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C");
 			$(".weather-output-min-temp").html('Min: ' + minTemp + "&deg;C");
 			$(".weather-output-max-temp").html('Max: ' + maxTemp + "&deg;C");
@@ -38,16 +38,37 @@ $(document).ready(function() {
 
 		// Gets and updates html with current weather info
 		$.getJSON(currentURL, function(jsonData) {
-			var currentTemp = Math.round(jsonData.main.temp);
+			var city = jsonData.list[0].name;
+			var country = jsonData.list[0].sys.country;
+
+			var currentTemp = Math.round(jsonData.list[0].main.temp);
+			// var minTemp = Math.round(jsonData.list[0].main.temp_min);
+			// var maxTemp = Math.round(jsonData.list[0].main.temp_max);
+
+			var weatherType = jsonData.list[0].weather[0].main;
+			var weatherIcon = jsonData.list[0].weather[0].icon;
+			var weatherIconList = ['01d','01n','02d','02n','03d','03n','04d','04n','09d','09n','10d','10n','11d','11n','13d','13n','50d','50n'];
+
+			if (weatherIconList.indexOf(weatherIcon) == -1) {
+				console.log('Icon for weather type not found!');
+				weatherIcon = '04d';
+			}
+
+			$(".weather-output-city").html(city);
+			$(".weather-output-country").html(country);
 			$(".weather-output-current-temp").html(currentTemp + "&deg;C");
-			// $(".weather-output-current-temp").prepend('<img src="images/weather-icons/Thermometer-50.svg">');
+			$(".weather-output-weather-type").html(weatherType);
+			$(".weather-type-img-wrapper").html('<img src="images/weather-icons/' + weatherIcon + '.svg" alt="' + weatherType + ' weather icon">');
+
+			// $(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C");
+			// $(".weather-output-min-temp").html('Min: ' + minTemp + "&deg;C");
+			// $(".weather-output-max-temp").html('Max: ' + maxTemp + "&deg;C");
 		});
 
 		// $(".weather-output-wrapper").append("<br><br>" + Date());
 
 	}
 
-	weatherLocation = "Sydney"; //TODO: remove this
 	// Update site based on location search by user
 	$(".location-search-form").submit(function(event) {
 		weatherLocation = $(".location-search-form input").val();
@@ -60,10 +81,13 @@ $(document).ready(function() {
 		event.preventDefault();
 	});
 
+	weatherLocation = "Sydney"; //TODO: remove this
 	// Get weather info from api in JSON format
 	// Current day only
-	var userCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+	// Have changed to find
+	var userCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/find?q=" + weatherLocation + "&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
 	// 5 day forecast
+	// find not working for forecast
 	var userForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + weatherLocation + "&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
 	// Call the function
 	updateWeatherInfo(userForecastURL,userCurrentWeatherURL);
