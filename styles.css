@@ -105,6 +105,26 @@ p {
 	display: block;
 }
 
+.location-search-form button {
+	display: block;
+	width: 200px;
+}
+
+.location-choice {
+	background: lightgrey;
+	padding: 0.5em;
+	max-width: 300px;
+	margin: 0.1em auto;
+}
+
+.location-choice:hover {
+	background: lightblue;
+}
+
+.location-choice:active {
+	background: steelblue;
+}
+
 @media (max-width: 600px) {
 	html, body {
 		background: white;
