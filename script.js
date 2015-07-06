@@ -1,10 +1,18 @@
+var appID = "3fc654da627fd43dff92f97e7b90b23f";
 var weatherLocation;
+
+var userCurrentWeatherURLBegin = "http://api.openweathermap.org/data/2.5/find?q=";
+var userCurrentWeatherURLEnd = "&units=metric&APPID=" + appID;
+var userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
+
+var userForecastURLBegin = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
+var userForecastURLEnd = "&cnt=5&units=metric&APPID=" + appID;
+var userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
 
 $(document).ready(function() {
 
 	var updateWeatherInfo = function(fiveDayURL,currentURL) {
 		// This function gets json from openweathermap's api and updates html with data
-		// Would probably be better to have retrieving data and updating html as separate functions
 
 		$.getJSON(fiveDayURL, function(jsonData) {
 			// Assign wanted data to vars
@@ -15,7 +23,6 @@ $(document).ready(function() {
 			$(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C");
 			$(".weather-output-min-temp").html('Min: ' + minTemp + "&deg;C");
 			$(".weather-output-max-temp").html('Max: ' + maxTemp + "&deg;C");
-
 		});
 
 		// Gets and updates html with current weather info
@@ -42,10 +49,19 @@ $(document).ready(function() {
 	};
 
 	var showLocationChoices = function() {
+		$('.location-choice').remove();
+		$('.search-error-message').remove();
 		$.getJSON(userCurrentWeatherURL, function(jsonData){
-			for (i in jsonData.list) {
-				$(".location-search-form").append("<button class='location-choice' id='location-choice' type='button'" + i
-					+ ">" + jsonData.list[i].name + ", " + jsonData.list[i].sys.country + "</button>");
+			if (jsonData.count == 0) {
+				// This should be a results div
+				$(".location-search-form").append('<div class="search-error-message">Location not found!</div>');
+			}
+			else {
+				// This should be a results div
+				for (i in jsonData.list) {
+					$(".location-search-form").append("<button class='location-choice' id='location-choice' type='button'" + i
+						+ ">" + jsonData.list[i].name + ", " + jsonData.list[i].sys.country + "</button>");
+				}
 			}
 		});
 	};
@@ -58,17 +74,14 @@ $(document).ready(function() {
 			var country = jsonData.list[0].sys.country;
 			weatherLocation = city + ", " + country;
 			// Forecast data loaded here so location for current and forecast data are the same
-			userForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + weatherLocation + "&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+			userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
 		});
 	};
 
 	// Update site based on location search by user
 	$(".location-search-form").submit(function(event) {
-		// Clears if results of a previous search still present
-		$('.location-choice').remove();		
-
 		weatherLocation = $(".location-search-form input").val();		
-		userCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/find?q=" + weatherLocation + "&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
 		showLocationChoices();
 
 		// Prevents default form submit behaviour (page refresh on submit)
@@ -79,17 +92,10 @@ $(document).ready(function() {
 	// for elements that don't exist yet. ie, .location-choice divs
 	$('.location-search-form').on('click','.location-choice',function(){
 		weatherLocation = $(this).html();
-		userCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/find?q=" + weatherLocation + "&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
-		userForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + weatherLocation + "&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
+		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
+		userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
 		updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
 		$('.location-choice').remove();
 	});
-
-	// Get weather info from api in JSON format
-	// Current day only
-	var userCurrentWeatherURL = "http://api.openweathermap.org/data/2.5/find?q=" + weatherLocation + "&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
-	// 5 day forecast
-	// find not working for forecast
-	var userForecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + weatherLocation + "&cnt=5&units=metric&APPID=3fc654da627fd43dff92f97e7b90b23f";
 
 });
