@@ -54,12 +54,12 @@ $(document).ready(function() {
 		$.getJSON(userCurrentWeatherURL, function(jsonData){
 			if (jsonData.count == 0) {
 				// This should be a results div
-				$(".location-search-form").append('<div class="search-error-message">Location not found!</div>');
+				$("#location-search-results").append('<div class="search-error-message">Location not found!</div>');
 			}
 			else {
 				// This should be a results div
 				for (i in jsonData.list) {
-					$(".location-search-form").append("<button class='location-choice' id='location-choice' type='button'" + i
+					$("#location-search-results").append("<button class='location-choice' id='location-choice' type='button'" + i
 						+ ">" + jsonData.list[i].name + ", " + jsonData.list[i].sys.country + "</button>");
 				}
 			}
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 	// Update site based on location search by user
 	$(".location-search-form").submit(function(event) {
-		weatherLocation = $(".location-search-form input").val();		
+		weatherLocation = $("#location-search-bar").val();		
 		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
 		showLocationChoices();
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 
 	// Using the .on() method like this allows for event listening
 	// for elements that don't exist yet. ie, .location-choice divs
-	$('.location-search-form').on('click','.location-choice',function(){
+	$('#location-search-results').on('click','.location-choice',function(){
 		weatherLocation = $(this).html();
 		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
 		userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;

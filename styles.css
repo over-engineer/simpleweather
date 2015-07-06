@@ -1,4 +1,3 @@
-
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700);
 
 html, body {
@@ -8,11 +7,14 @@ html, body {
 	/*min-width: 100%;*/
 	/*min-height: 100%;*/
 
-	font-family: "Ubuntu", Arial, sans-serif;
-	font-size: 14px;
 	text-align: center;
 	background: url("images/tweed_2x.png");
 	color: #333;
+}
+
+* {
+	font-family: "Ubuntu", Arial, sans-serif;
+	font-size: 14px;
 }
 
 h1, h2 {
@@ -105,24 +107,59 @@ p {
 	display: block;
 }
 
+
+.location-search-form input {
+	/*width: 19em;*/
+	border: 1px solid grey;
+	border-radius: 3px;
+	padding: 0.5em;
+}
+
 .location-search-form button {
-	display: block;
-	width: 200px;
+	/*display: block;*/
+	/*width: 200px;*/
+}
+
+#location-search-bar {
+	width: 19em;
+}
+
+#location-search-bar:focus {
+	border-color: steelblue;
+}
+
+#location-search-submit {
+	width: 9em;
+	background: white;
+}
+
+#location-search-submit:hover {
+	background: lightgrey;
+	border-color: steelblue;
+}
+
+#location-search-submit:active {
+	background: lightsteelblue;
+	border-color: steelblue;
 }
 
 .location-choice {
-	background: lightgrey;
+	/*background: lightgrey;*/
+	border: 0.5px solid steelblue;
+	border-radius: 3px;
 	padding: 0.5em;
-	max-width: 300px;
-	margin: 0.1em auto;
+	/*max-width: 300px;*/
+	margin: 0 auto;
+	display: block;
+	width: 25em;
 }
 
 .location-choice:hover {
-	background: lightblue;
+	background: lightgrey;
 }
 
 .location-choice:active {
-	background: steelblue;
+	background: lightsteelblue;
 }
 
 @media (max-width: 600px) {
