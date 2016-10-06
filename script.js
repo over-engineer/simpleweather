@@ -20,9 +20,9 @@ $(document).ready(function() {
 			var minTemp = Math.round(jsonData.list[0].temp.min);
 			var maxTemp = Math.round(jsonData.list[0].temp.max);
 
-			$(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C");
-			$(".weather-output-min-temp").html('Min: ' + minTemp + "&deg;C");
-			$(".weather-output-max-temp").html('Max: ' + maxTemp + "&deg;C");
+			$(".weather-output-avg-temp").html('Average: ' + avgTemp + "&deg;C/" + convertToF(avgTemp) + "&deg;F");
+			$(".weather-output-min-temp").html('Min:     ' + minTemp + "&deg;C/" + convertToF(minTemp) + "&deg;F");
+			$(".weather-output-max-temp").html('Max:     ' + maxTemp + "&deg;C/" + convertToF(maxTemp) + "&deg;F");
 		});
 
 		// Gets and updates html with current weather info
@@ -41,12 +41,16 @@ $(document).ready(function() {
 
 			$(".weather-output-city").html(city);
 			$(".weather-output-country").html(country);
-			$(".weather-output-current-temp").html(currentTemp + "&deg;C");
+			$(".weather-output-current-temp").html(currentTemp + "&deg;C/" + convertToF(currentTemp) + "&deg;F");
 			$(".weather-output-weather-type").html(weatherType);
 			$(".weather-type-img-wrapper").html('<img src="images/weather-icons/' + weatherIcon + '.svg" alt="' + weatherType + ' weather icon">');
 		});
 
 	};
+
+    var convertToF = function(c) {
+        return (c * (9/5)) + 32;
+    }
 
 	var showLocationChoices = function() {
 		$('.location-choice').remove();
