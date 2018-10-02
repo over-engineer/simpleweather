@@ -84,7 +84,7 @@ $(document).ready(function() {
 
 	// Update site based on location search by user
 	$(".location-search-form").submit(function(event) {
-		weatherLocation = $("#location-search-bar").val();		
+		weatherLocation = $("#location-search-bar").val();
 		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
 		showLocationChoices();
 
@@ -98,8 +98,21 @@ $(document).ready(function() {
 		weatherLocation = $(this).html();
 		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
 		userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
+		//store location
+		Cookies.set("weatherLocation", weatherLocation);
 		updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
 		$('.location-choice').remove();
 	});
+
+	//get location from cookie and refresh
+	weatherLocation = Cookies.get("weatherLocation");
+	userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
+	userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
+	updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
+
+	//refresh page every minute
+	setTimeout(function(){
+	  window.location.reload(1);
+	}, 60000);
 
 });
