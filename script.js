@@ -48,9 +48,9 @@ $(document).ready(function() {
 
 	};
 
-    var convertToF = function(c) {
-        return (c * (9/5)) + 32;
-    }
+  var convertToF = function(c) {
+      return Math.round((c * (9/5)) + 32);
+  }
 
 	var showLocationChoices = function() {
 		$('.location-choice').remove();
@@ -101,6 +101,7 @@ $(document).ready(function() {
 		//store location
 		Cookies.set("weatherLocation", weatherLocation);
 		updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
+    $('#location-search-bar').val('');
 		$('.location-choice').remove();
 	});
 
