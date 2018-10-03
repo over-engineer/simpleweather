@@ -110,9 +110,9 @@ $(document).ready(function() {
 	userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
 	updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
 
-	//refresh page every minute
+	//refresh page every 10 minutes
 	setTimeout(function(){
-	  window.location.reload(1);
-	}, 60000);
+	  updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
+	}, 600000);
 
 });
