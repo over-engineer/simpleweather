@@ -48,9 +48,9 @@ $(document).ready(function() {
 
 	};
 
-    var convertToF = function(c) {
-        return (c * (9/5)) + 32;
-    }
+  var convertToF = function(c) {
+      return Math.round((c * (9/5)) + 32);
+  }
 
 	var showLocationChoices = function() {
 		$('.location-choice').remove();
@@ -84,7 +84,7 @@ $(document).ready(function() {
 
 	// Update site based on location search by user
 	$(".location-search-form").submit(function(event) {
-		weatherLocation = $("#location-search-bar").val();		
+		weatherLocation = $("#location-search-bar").val();
 		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
 		showLocationChoices();
 
@@ -98,8 +98,22 @@ $(document).ready(function() {
 		weatherLocation = $(this).html();
 		userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
 		userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
+		//store location
+		Cookies.set("weatherLocation", weatherLocation);
 		updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
+    $('#location-search-bar').val('');
 		$('.location-choice').remove();
 	});
+
+	//get location from cookie and refresh
+	weatherLocation = Cookies.get("weatherLocation");
+	userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
+	userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
+	updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
+
+	//refresh page every 10 minutes
+	setTimeout(function(){
+	  updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
+	}, 600000);
 
 });
