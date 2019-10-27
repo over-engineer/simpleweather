@@ -4,13 +4,15 @@
 
   const userCurrentWeatherURLBegin = 'http://api.openweathermap.org/data/2.5/find?q=';
   const userCurrentWeatherURLEnd = `&units=metric&APPID=${appID}`;
-  let userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
+  let userCurrentWeatherURL = userCurrentWeatherURLBegin
+    + weatherLocation
+    + userCurrentWeatherURLEnd;
 
   const userForecastURLBegin = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=';
   const userForecastURLEnd = `&cnt=5&units=metric&APPID=${appID}`;
   let userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
 
-  $(document).ready(() => {
+  $(() => {
     const convertToF = (c) => Math.round((c * (9 / 5)) + 32);
 
     const updateWeatherInfo = (fiveDayURL, currentURL) => {
@@ -53,35 +55,28 @@
       $('.location-choice').remove();
       $('.search-error-message').remove();
       $.getJSON(userCurrentWeatherURL, (jsonData) => {
+        const searchResultsElem = $('#location-search-results');
+
         if (jsonData.count === 0) {
           // This should be a results div
-          $('#location-search-results').append('<div class="search-error-message">Location not found!</div>');
+          searchResultsElem.append('<div class="search-error-message">Location not found!</div>');
         } else {
           // This should be a results div
-          for (i in jsonData.list) {
-            $("#location-search-results").append("<button class='location-choice' id='location-choice' type='button'" + i
-              + ">" + jsonData.list[i].name + ", " + jsonData.list[i].sys.country + "</button>");
-          }
+          jsonData.list.forEach((location, i) => {
+            const { name } = location;
+            const { country } = location.sys;
+            searchResultsElem.append(`<button class="location-choice" id="location-choice" type="button" ${i}>${name}, ${country}</button>`);
+          });
         }
-      });
-    };
-
-    // This is useless, can delete
-    const changeLocation = () => {
-      // Won't need AJAX call here
-      $.getJSON(userCurrentWeatherURL, (jsonData) => {
-        const city = jsonData.list[0].name;
-        const { country } = jsonData.list[0].sys;
-        weatherLocation = `${city}, ${country}`;
-        // Forecast data loaded here so location for current and forecast data are the same
-        userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
       });
     };
 
     // Update site based on location search by user
     $('.location-search-form').submit((event) => {
       weatherLocation = $('#location-search-bar').val();
-      userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
+      userCurrentWeatherURL = userCurrentWeatherURLBegin
+        + weatherLocation
+        + userCurrentWeatherURLEnd;
       showLocationChoices();
 
       // Prevents default form submit behaviour (page refresh on submit)
@@ -90,9 +85,12 @@
 
     // Using the .on() method like this allows for event listening
     // for elements that don't exist yet. ie, .location-choice divs
-    $('#location-search-results').on('click', '.location-choice', () => {
-      weatherLocation = $(this).html();
-      userCurrentWeatherURL = userCurrentWeatherURLBegin + weatherLocation + userCurrentWeatherURLEnd;
+    // eslint-disable-next-line func-names
+    $('#location-search-results').on('click', '.location-choice', (event) => {
+      weatherLocation = $(event.currentTarget).html();
+      userCurrentWeatherURL = userCurrentWeatherURLBegin
+        + weatherLocation
+        + userCurrentWeatherURLEnd;
       userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
 
       // Store location
@@ -114,4 +112,5 @@
       updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
     }, 600000);
   });
+// eslint-disable-next-line no-undef
 })(jQuery, Cookies);
