@@ -8,3 +8,9 @@ Just a simple weather app/website. Pulls weather information from the openweathe
 $ npm install
 $ npm start
 ```
+
+## Credits
+
+* Weather icons by [Adam Whitcroft](http://adamwhitcroft.com/climacons/)
+* Background pattern from [subtlepatterns.com](http://subtlepatterns.com/)
+* Cookie Manager from [code.iamkate.com](http://code.iamkate.com/javascript/using-cookies/)
