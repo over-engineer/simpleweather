@@ -13,8 +13,20 @@
   let userForecastURL = userForecastURLBegin + weatherLocation + userForecastURLEnd;
 
   $(() => {
+    /**
+     * Conver the given temperature from Celsius to Fahrenheit
+     *
+     * @param {number} c    The temperature in Celsius
+     * @return {number}     The temperature in Fahrenheit
+     */
     const convertToF = (c) => Math.round((c * (9 / 5)) + 32);
 
+    /**
+     * Update the weather information
+     *
+     * @param {string} fiveDayURL     The forecast url
+     * @param {string} currentURL     The current url
+     */
     const updateWeatherInfo = (fiveDayURL, currentURL) => {
       // Get JSON from openweathermap's API and update HTML with data
       fetch(fiveDayURL)
@@ -55,6 +67,9 @@
         });
     };
 
+    /**
+     * Create a list of buttons, populate it with locations retrieved from the API and display it
+     */
     const showLocationChoices = () => {
       $('.location-choice').remove();
       $('.search-error-message').remove();
