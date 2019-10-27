@@ -14,7 +14,7 @@
 
   $(() => {
     /**
-     * Conver the given temperature from Celsius to Fahrenheit
+     * Convert the given temperature from Celsius to Fahrenheit
      *
      * @param {number} c    The temperature in Celsius
      * @return {number}     The temperature in Fahrenheit
