@@ -16,8 +16,7 @@
     const convertToF = (c) => Math.round((c * (9 / 5)) + 32);
 
     const updateWeatherInfo = (fiveDayURL, currentURL) => {
-      // This function gets json from openweathermap's api and updates html with data
-      // This function gets json from openweathermap's api and updates html with data
+      // Get JSON from openweathermap's API and update HTML with data
       fetch(fiveDayURL)
         .then((response) => response.json())
         .then((jsonData) => {
@@ -31,7 +30,7 @@
           $('.weather-output-max-temp').html(`Max:     ${maxTemp}&deg;C/${convertToF(maxTemp)}&deg;F`);
         });
 
-      // Gets and updates html with current weather info
+      // Get and update HTML with current weather info
       fetch(currentURL)
         .then((response) => response.json())
         .then((jsonData) => {
@@ -87,7 +86,7 @@
         + userCurrentWeatherURLEnd;
       showLocationChoices();
 
-      // Prevents default form submit behaviour (page refresh on submit)
+      // Prevent default form submit behaviour (page refresh on submit)
       event.preventDefault();
     });
 
