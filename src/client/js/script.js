@@ -107,7 +107,6 @@
 
     // Using the .on() method like this allows for event listening
     // for elements that don't exist yet. ie, .location-choice divs
-    // eslint-disable-next-line func-names
     $('#location-search-results').on('click', '.location-choice', (event) => {
       weatherLocation = $(event.currentTarget).html();
       userCurrentWeatherURL = userCurrentWeatherURLBegin

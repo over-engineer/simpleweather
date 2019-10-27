@@ -12,6 +12,11 @@ app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/client/index.html`);
 });
 
+// TODO: Read the OpenWeatherMap API credentials (APP_ID) from an environment variable (issue #3)
+// TODO: Move the OpenWeatherMap API JSON grabbing/parsing logic here (issue #1)
+// TODO: Create additional endpoints to respond with the weather data
+// TODO: Store retrieved weather data to a database on the backend (issue #2)
+
 // HTTP server
 const server = http.createServer(app);
 const port = process.env.PORT || 5000;
