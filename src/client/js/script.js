@@ -17,58 +17,66 @@
 
     const updateWeatherInfo = (fiveDayURL, currentURL) => {
       // This function gets json from openweathermap's api and updates html with data
-      $.getJSON(fiveDayURL, (jsonData) => {
-        // Assign wanted data to vars
-        const avgTemp = Math.round(jsonData.list[0].temp.day);
-        const minTemp = Math.round(jsonData.list[0].temp.min);
-        const maxTemp = Math.round(jsonData.list[0].temp.max);
+      // This function gets json from openweathermap's api and updates html with data
+      fetch(fiveDayURL)
+        .then((response) => response.json())
+        .then((jsonData) => {
+          // Assign wanted data to vars
+          const avgTemp = Math.round(jsonData.list[0].temp.day);
+          const minTemp = Math.round(jsonData.list[0].temp.min);
+          const maxTemp = Math.round(jsonData.list[0].temp.max);
 
-        $('.weather-output-avg-temp').html(`Average: ${avgTemp}&deg;C/${convertToF(avgTemp)}&deg;F`);
-        $('.weather-output-min-temp').html(`Min:     ${minTemp}&deg;C/${convertToF(minTemp)}&deg;F`);
-        $('.weather-output-max-temp').html(`Max:     ${maxTemp}&deg;C/${convertToF(maxTemp)}&deg;F`);
-      });
+          $('.weather-output-avg-temp').html(`Average: ${avgTemp}&deg;C/${convertToF(avgTemp)}&deg;F`);
+          $('.weather-output-min-temp').html(`Min:     ${minTemp}&deg;C/${convertToF(minTemp)}&deg;F`);
+          $('.weather-output-max-temp').html(`Max:     ${maxTemp}&deg;C/${convertToF(maxTemp)}&deg;F`);
+        });
 
       // Gets and updates html with current weather info
-      $.getJSON(currentURL, (jsonData) => {
-        const city = jsonData.list[0].name;
-        const { country } = jsonData.list[0].sys;
-        const currentTemp = Math.round(jsonData.list[0].main.temp);
-        const weatherType = jsonData.list[0].weather[0].main;
-        let weatherIcon = jsonData.list[0].weather[0].icon;
-        const weatherIconList = ['01d', '01n', '02d', '02n', '03d', '03n', '04d', '04n', '09d', '09n', '10d', '10n', '11d', '11n', '13d', '13n', '50d', '50n'];
+      fetch(currentURL)
+        .then((response) => response.json())
+        .then((jsonData) => {
+          const city = jsonData.list[0].name;
+          const { country } = jsonData.list[0].sys;
+          const currentTemp = Math.round(jsonData.list[0].main.temp);
+          const weatherType = jsonData.list[0].weather[0].main;
+          let weatherIcon = jsonData.list[0].weather[0].icon;
+          const weatherIconList = ['01d', '01n', '02d', '02n', '03d', '03n', '04d', '04n', '09d', '09n', '10d', '10n', '11d', '11n', '13d', '13n', '50d', '50n'];
 
-        if (weatherIconList.indexOf(weatherIcon) === -1) {
-          // eslint-disable-next-line no-console
-          console.log('Icon for weather type not found!');
-          weatherIcon = '04d';
-        }
+          if (weatherIconList.indexOf(weatherIcon) === -1) {
+            // eslint-disable-next-line no-console
+            console.log('Icon for weather type not found!');
+            weatherIcon = '04d';
+          }
 
-        $('.weather-output-city').html(city);
-        $('.weather-output-country').html(country);
-        $('.weather-output-current-temp').html(`${currentTemp}&deg;C/${convertToF(currentTemp)}&deg;F`);
-        $('.weather-output-weather-type').html(weatherType);
-        $('.weather-type-img-wrapper').html(`<img src="images/weather-icons/${weatherIcon}.svg" alt="${weatherType} weather icon">`);
-      });
+          $('.weather-output-city').html(city);
+          $('.weather-output-country').html(country);
+          $('.weather-output-current-temp').html(`${currentTemp}&deg;C/${convertToF(currentTemp)}&deg;F`);
+          $('.weather-output-weather-type').html(weatherType);
+          $('.weather-type-img-wrapper').html(`<img src="images/weather-icons/${weatherIcon}.svg" alt="${weatherType} weather icon">`);
+        });
     };
 
     const showLocationChoices = () => {
       $('.location-choice').remove();
       $('.search-error-message').remove();
-      $.getJSON(userCurrentWeatherURL, (jsonData) => {
-        const searchResultsElem = $('#location-search-results');
 
-        if (jsonData.count === 0) {
-          // This should be a results div
-          searchResultsElem.append('<div class="search-error-message">Location not found!</div>');
-        } else {
-          // This should be a results div
-          jsonData.list.forEach((location, i) => {
-            const { name } = location;
-            const { country } = location.sys;
-            searchResultsElem.append(`<button class="location-choice" id="location-choice" type="button" ${i}>${name}, ${country}</button>`);
-          });
-        }
-      });
+      fetch(userCurrentWeatherURL)
+        .then((response) => response.json())
+        .then((jsonData) => {
+          const searchResultsElem = $('#location-search-results');
+
+          if (jsonData.count === 0) {
+            // This should be a results div
+            searchResultsElem.append('<div class="search-error-message">Location not found!</div>');
+          } else {
+            // This should be a results div
+            jsonData.list.forEach((location, i) => {
+              const { name } = location;
+              const { country } = location.sys;
+              searchResultsElem.append(`<button class="location-choice" id="location-choice" type="button" ${i}>${name}, ${country}</button>`);
+            });
+          }
+        });
     };
 
     // Update site based on location search by user
@@ -112,5 +120,4 @@
       updateWeatherInfo(userForecastURL, userCurrentWeatherURL);
     }, 600000);
   });
-// eslint-disable-next-line no-undef
 })(jQuery, Cookies);
